@@ -11,4 +11,4 @@ jobs:
 
     steps:
       - name: Print Test
-        run: echo 'Test'
+        run: echo 'Test2'
