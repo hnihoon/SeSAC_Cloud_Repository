@@ -21,12 +21,14 @@ jobs:
       # 포트 & HOST 추가작업
       - name: Add Remote Server Fingerprint to Known Hosts
         run: ssh-keyscan -H -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts || true
+
       # EC2 인스턴스에 hello-world.txt 생성
       - name: create file on remote server
         run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "touch 'hello-world.txt'"
+
       # 복사작업
       - name: copy file to remote server
+        run: scp -P ${{ secrets.SSH_POST }} Readme.md ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:~/
       # scp 포트 지정시에는 대문자 P로 작성
       # run: scp -P ${{ secrets.SSH_POST }} [복사할 파일 이름] ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:[복사위치]
-        run: scp -P ${{ secrets.SSH_POST }} Readme.md ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:~/
       
