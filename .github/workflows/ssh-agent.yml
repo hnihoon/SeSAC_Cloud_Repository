@@ -32,3 +32,15 @@ jobs:
       # run: scp -P ${{ secrets.SSH_PORT }} [복사할 파일 이름] ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:[복사위치]
         run: scp -P ${{ secrets.SSH_PORT }} Readme.md ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:~/
       
+      - name: Run remote command test
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST}}
+          username: ${{ secrets.SSH_USERNAME}}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT}}
+          #  SSH 연결로 순차적으로 실행할 명령어 목록
+          script: |
+            mkdir 'work-directory'
+            cd work-directory
+            touch 'hello-world.txt'
