@@ -1,0 +1,15 @@
+name: Hello World
+
+on: 
+  push:
+    braches:
+      - main
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Print hello world
+      # echo : 출력한다는 의미
+        run: echo 'Hello World'
