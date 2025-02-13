@@ -14,3 +14,10 @@ jobs:
       - name: Print hello world
       # echo : 출력한다는 의미
         run: echo 'Hello World'
+
+  hello-secret:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Print Secret
+        run: echo '${{ secret.MY_SECRET}}'
