@@ -62,7 +62,7 @@ services:
       - "443:443"
     volumes:
       - /etc/letsencrypt/live/3.35.156.153.sslip.io/fullchain.pem:/etc/letsencrypt/live/3.35.156.153.sslip.io/fullchain.pem
-      - /etc/letsencrypt/live/3.35.156.153.sslip.io/fullchain.pem:/etc/letsencrypt/live/3.35.156.153.sslip.io/privkey.pem
+      - /etc/letsencrypt/live/3.35.156.153.sslip.io/privkey.pem:/etc/letsencrypt/live/3.35.156.153.sslip.io/privkey.pem
     networks:
       - backend-connect
     depends_on:
