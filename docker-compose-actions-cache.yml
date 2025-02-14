@@ -57,8 +57,6 @@ services:
       args:
         VITE_API_URL: ${VITE_API_URL}
     image: kdh462601/frontend:latest
-    environment:
-      - DOMAIN=3.35.156.153
     ports:
       - "80:80"
       - "443:443"
