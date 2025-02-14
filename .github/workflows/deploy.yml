@@ -25,9 +25,9 @@ jobs:
       # actions/cache : 깃허브 캐시 저장소 활용을 위한 라이브러리
         uses: actions/cache@v4.2.0
         with:
-          path: /tmp/.buildx-cache
-          key: docker-image-layer-cache-${{ github.sha }}
-          restore-keys: docker-image-layer-cache
+          path: /tmp/.buildx-cache # 캐시로 관히라 경로
+          key: docker-image-layer-cache-${{ github.sha }} # 저장 & 불러올 캐시 이름(식별자)
+          restore-keys: docker-image-layer-cache # 만약 캐시 key를 찾지 못하면 대체할 캐시 이름
 
       - name: run ssh-agent
         uses: webfactory/ssh-agent@v0.9.0
@@ -56,7 +56,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
       
       # BuildKit 엔진 빌더(이미지 빌드를 도와주는 도구) 생성
-      # 기존 Docker 빌더 : Cache 파일 저장&불러오기 경로 제어 불가
+      # 기존 Docker 빌더 : Cache 파일 저장&불러오기 경로 제어 불가 
       - name: Create BuildKit 빌더
         run: |
           docker buildx create --use --name buildkit
