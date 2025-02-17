@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,18 +17,42 @@ import java.util.stream.Collectors;
 public class ArticleService {
 
 	private final ArticleRepository articleRepository;
+	private final  S3Service s3Service;
+
+//	@Transactional
+//	public ArticleResponseDto createArticle(ArticleRequestDto requestDto) {
+//
+//		Article article = Article.builder()
+//				.title(requestDto.getTitle())
+//				.content(requestDto.getContent())
+//				.build();
+//
+//		Article savedArticle = articleRepository.save(article);
+//
+//		return toResponseDto(savedArticle);
+//	}
 
 	@Transactional
-	public ArticleResponseDto createArticle(ArticleRequestDto requestDto) {
+	public ArticleResponseDto createArticle(ArticleRequestDto requestDto){
 
+		// S3 파일 업로드
+		// S3Service.uploadFile()호출
+		// uploadResult - imageUrl, s3Key
+		Map<String, String> uploadResult = s3Service.uploadFile(requestDto.getFile());
+		String imageUrl = uploadResult.get("imageUrl");
+		String s3Key = uploadResult.get("s3Key");
+
+		// article 엔티티 생성
 		Article article = Article.builder()
-				.title(requestDto.getTitle())
-				.content(requestDto.getContent())
+				.title((requestDto.getTitle()))
+				.content((requestDto.getContent()))
+				.imageUrl(imageUrl)
+				.s3Key(s3Key)
+				.originalFileName(requestDto.getFile().getOriginalFilename())
 				.build();
 
-		Article savedArticle = articleRepository.save(article);
-
-		return toResponseDto(savedArticle);
+		Article saveArticle = articleRepository.save(article);
+		return toResponseDto(saveArticle);
 	}
 
 	@Transactional
@@ -57,6 +82,8 @@ public class ArticleService {
 				.content(article.getContent())
 				.createdAt(article.getCreatedAt())
 				.updatedAt(article.getUpdatedAt())
+				.imageURL(article.getImageUrl())
+				.originalFileName(article.getImageUrl())
 				.build();
 
 	}

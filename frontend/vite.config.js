@@ -8,8 +8,20 @@ export default defineConfig({
     react(),
     compression({
       algorithm: "gzip", // Gzip 알고리즘 사용
-      ext: ".gz", // 생성되는 파일의 확장자
+      ext: ". gz", // 생성되는 파일의 확장자
       threshold: 10240, // 압축 최소 크기 (10KB 이상만 압축)
     }),
   ],
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:8080/api/",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+        secure: false,
+        ws: true,
+      },
+    },
+  },
 });
+  

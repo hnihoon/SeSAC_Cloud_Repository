@@ -6,7 +6,11 @@ const articlesApi = {
     return resposne.data;
   },
   postArticle: async (data) => {
-    const resposne = await api.post(`articles`, data);
+    const resposne = await api.post(`articles`, data,{
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return resposne.data;
   },
   getArticle: async (id) => {

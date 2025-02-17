@@ -15,6 +15,8 @@ export default function Article({ article, isDetail = false }) {
         {article.title}
       </h2>
       {isDetail && <p className={styles.articleContent}>{article.content}</p>}
+      <img src={article.imageUrl} alt={article.originalFileName} />
     </div>
   );
 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       

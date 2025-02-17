@@ -31,13 +31,15 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     // Swagger 의존성
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
-    // 환경 변수 주입 의존성
+    // 환경 변수 주입 의존성(.env 에서 환경변수 가져옴)
     implementation 'me.paulschwarz:spring-dotenv:4.0.0'
     // MySQL 연결 의존성
     runtimeOnly 'com.mysql:mysql-connector-j'
     // Lombok 의존성
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'software.amazon.awssdk:s3:2.20.12'
     
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
